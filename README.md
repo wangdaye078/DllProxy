@@ -1,2 +1,12 @@
-# DllProxy
-DllProxy
+项目目标：  
+当一个项目调用了python3?.dll，比如python37.dll，那他的输入表将只能调用python37.dll，如果你将编译好的程序发给别人，而对方只安装了python38，那你的代码将无法工作，所以想要写个DLL做中转。  
+具体实现：  
+1.调用dllExportMap.py产生一个指定DLL的输出表重定向文件  
+2.然后dllmain.cpp里包含输出表重定向文件后编译出python3x.dll  
+3.调用python3x.dll，找到当前安装的python3?.dll，执行repatch_moudle修改输出表重定向。  
+4.再调用python3x.dll的输出，就会转向python3?.dll  
+另外又写了一个自定义的LoadLibrary，也可以实现上面类似的功能  
+项目结果：  
+发现python37.dll和python38.dll有不少函数是不对应的，同一份代码使用不同的python库编译后，编译出的代码经常是不一样的，而且并不兼容，不是简单换一个DLL就能继续执行的。  
+所以这个项目没有达到想要的效果。希望python的后续版本能改善前后版本库文件的兼容性。  
+但是代码既然写了，丢了有点浪费，所以存这。  
